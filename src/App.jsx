@@ -4,6 +4,8 @@ import Protected from "./feature/auth/Componenet/Protected"
 import PageNotFound from "./pages/PageNotFound"
 import Loader from "./components/Loader"
 import { lazy, Suspense } from "react"
+import Cart from "./feature/cart/components/Cart"
+import CheckoutPage from "./pages/CheckoutPage"
 
 
 
@@ -42,7 +44,25 @@ const router = createBrowserRouter([
           </Suspense>
         ),
       },
+
+      {
+        path: 'cart', 
+        element: (
+          <Suspense fallback={<Loader />}>
+            <Cart />
+          </Suspense>
+        ),
+      },
     ]
+  },
+
+  { 
+    path: '/checkout', 
+    element: (
+      <Suspense fallback={<Loader />}>
+        <CheckoutPage />
+      </Suspense>
+    ) 
   },
   { 
     path: '/login', 
