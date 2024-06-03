@@ -4,14 +4,14 @@ import { Outlet } from 'react-router-dom';
 // import { ModeToggle } from './toogle-mode';
 import Navbar from '@/feature/navbar/Componenet/Navbar';
 
-const MainLayout = () => {
+const MainLayout = ({children}) => {
   return (
     <div>
       <header>
         <Navbar/>
       </header>
       <main>
-        <Outlet />
+        {children}
       </main>
       <footer>Footer</footer>
     </div>

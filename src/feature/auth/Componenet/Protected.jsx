@@ -1,9 +1,20 @@
-import React from 'react'
+import React from 'react';
+import { Navigate, Outlet, useNavigate } from 'react-router-dom';
+import isAuthenticated from '../authAPI';
+import { useEffect } from 'react';
+// import { useNavigate } from 'react-router-dom';
 
-const Protected = () => {
-  return (
-    <div>Protected</div>
-  )
-}
+const Protected = ({ children }) => {
+  const navigate = useNavigate();
 
-export default Protected
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    if (isLoggedIn !== "true") {
+      navigate('/login');
+    }
+  }, [navigate]);
+
+  return <Outlet/>;
+};
+
+export default Protected;

@@ -11,6 +11,7 @@ import {
 } from '@headlessui/react'
 import { Bars3Icon, ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { ModeToggle } from '@/components/toogle-mode'
+import { Link, useNavigate } from 'react-router-dom'
 
 const user = {
   name: 'Tom Cook',
@@ -19,16 +20,10 @@ const user = {
     'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
 }
 const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
-  { name: 'Team', href: '#', current: false },
-  { name: 'Projects', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false },
-  { name: 'Reports', href: '#', current: false },
-]
-const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
+  { name: 'Home', href: '/', current: true },
+  { name: 'Register', href: '/signup', current: false },
+  { name: 'cart', href: '/cart', current: false },
+  { name: 'Checkout', href: '/checkout', current: false },
 ]
 
 function classNames(...classes) {
@@ -37,6 +32,19 @@ function classNames(...classes) {
 
 
 const Navbar = ({children}) => {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.setItem("isLoggedIn", "false");
+    console.log("set logout")
+    navigate("/login");
+  };
+
+  const userNavigation = [
+    { name: 'Your Profile', href: '#' },
+    { name: 'Settings', href: '#' },
+    { name: 'Sign out', href: '#', onClick: handleLogout },
+  ]
+  
   return (
     <div className="min-h-full">
         <Disclosure as="nav" className="bg-white">
@@ -55,9 +63,9 @@ const Navbar = ({children}) => {
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
                         {navigation.map((item) => (
-                          <a
+                          <Link
                             key={item.name}
-                            href={item.href}
+                            to={item.href}
                             className={classNames(
                               item.current
                                 ? 'bg-gray-900 text-white'
@@ -67,7 +75,7 @@ const Navbar = ({children}) => {
                             aria-current={item.current ? 'page' : undefined}
                           >
                             {item.name}
-                          </a>
+                          </Link>
                         ))}
                       </div>
                     </div>
@@ -109,19 +117,23 @@ const Navbar = ({children}) => {
                         >
                           <MenuItems className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                             {userNavigation.map((item) => (
-                              <MenuItem key={item.name}>
+                              <MenuItem key={item.name}  >
                                 {({ focus }) => (
-                                  <a
-                                    href={item.href}
+                                  <Link
+                                    to={item.href}
+                                    onClick={item.onClick}
+                                   
                                     className={classNames(
                                       focus ? 'bg-gray-100' : '',
                                       'block px-4 py-2 text-sm text-gray-700'
                                     )}
+                                    
                                   >
                                     {item.name}
-                                  </a>
+                                  </Link>
                                 )}
                               </MenuItem>
+                           
                             ))}
                           </MenuItems>
                         </Transition>
@@ -191,8 +203,11 @@ const Navbar = ({children}) => {
                     {userNavigation.map((item) => (
                       <DisclosureButton
                         key={item.name}
+                        onClick={item.name === 'Sign out' ? handleLogout : null}
                         as="a"
                         href={item.href}
+                        // add logout function
+                        
                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
                       >
                         {item.name}

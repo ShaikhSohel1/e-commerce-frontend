@@ -20,16 +20,14 @@ const router = createBrowserRouter([
     path: '/',
     element: (
       <MainLayout>
-        <Protected>
-          <Suspense fallback={<Loader />}>
-            <Outlet />
-          </Suspense>
-        </Protected>
+        <Suspense fallback={<Loader />}>
+          <Protected/>
+        </Suspense>
       </MainLayout>
     ),
     children: [
-      { 
-        index: true, 
+      {
+        index: true,
         element: (
           <Suspense fallback={<Loader />}>
             <HomePage />
@@ -37,7 +35,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: 'product-details/:id', 
+        path: 'product-details/:id',
         element: (
           <Suspense fallback={<Loader />}>
             <ProductDetailPage />
@@ -46,7 +44,7 @@ const router = createBrowserRouter([
       },
 
       {
-        path: 'cart', 
+        path: 'cart',
         element: (
           <Suspense fallback={<Loader />}>
             <Cart />
@@ -56,33 +54,33 @@ const router = createBrowserRouter([
     ]
   },
 
-  { 
-    path: '/checkout', 
+  {
+    path: '/checkout',
     element: (
       <Suspense fallback={<Loader />}>
         <CheckoutPage />
       </Suspense>
-    ) 
+    )
   },
-  { 
-    path: '/login', 
+  {
+    path: '/login',
     element: (
       <Suspense fallback={<Loader />}>
         <LoginPage />
       </Suspense>
-    ) 
+    )
   },
-  { 
-    path: '/signup', 
+  {
+    path: '/signup',
     element: (
       <Suspense fallback={<Loader />}>
         <SignUpPage />
       </Suspense>
-    ) 
+    )
   },
-  { 
-    path: '*', 
-    element: <PageNotFound /> 
+  {
+    path: '*',
+    element: <PageNotFound />
   },
 ]);
 
@@ -90,7 +88,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <>
- <RouterProvider router={router} />
+      <RouterProvider router={router} />
     </>
   )
 }

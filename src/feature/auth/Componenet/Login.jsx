@@ -10,11 +10,24 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Image } from "lucide-react"
-import { Link } from "react-router-dom"
+import { Link, Navigate, useNavigate } from "react-router-dom"
 import banner from '../../../assets/banner.jfif'
 // import
 
+
+
+
+
 const Login = () => {
+  const navigate = useNavigate();
+  
+  const handleLogin = () => {
+    localStorage.setItem("isLoggedIn", "true");
+    navigate("/");
+    console.log("set login")
+ 
+    // window.location.reload();
+  };
   return (
     <div className="flex justify-center items-center h-[100vh]">
  
@@ -69,7 +82,7 @@ const Login = () => {
     <div className="flex items-center">
   
    
-     <Card className="mx-auto max-w-sm h-fit ">
+     <Card className="mx-auto max-w-sm h-fit mt-[20vh] lg:mt-0  ">
       <CardHeader>
         <CardTitle className="text-2xl">
           <div className="flex justify-between">
@@ -107,7 +120,7 @@ const Login = () => {
             </div>
             <Input id="password" type="password" required />
           </div>
-          <Button type="submit" className="w-full">
+          <Button  className="w-full" onClick={handleLogin} >
             Login
           </Button>
           {/* <Button variant="outline" className="w-full">
