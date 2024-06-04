@@ -1,7 +1,8 @@
-export function fetchCount(amount =1){
-    return new Promise((resolve) =>{
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts')
+export function fetchAllProduct(){
+    return new Promise(async (resolve) =>{
+        const response = await fetch('http://localhost:8080/products')
         const data = await response.json()
+        console.log(data)
         resolve(data)
     })
 }
